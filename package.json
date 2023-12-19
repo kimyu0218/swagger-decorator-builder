@@ -1,8 +1,8 @@
 {
-  "name": "swagger-decorator",
+  "name": "swagger-decorator-builder",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "This project is a Swagger Decorator Builder designed to **simplify the creation of Swagger decorators for API documentation**.",
+  "author": "kimyu0218",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
@@ -67,5 +67,17 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
-  }
+  },
+  "main": "src/common/decorators/swagger/builder.ts",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/kimyu0218/swagger-decorator-builder.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kimyu0218/swagger-decorator-builder/issues"
+  },
+  "homepage": "https://github.com/kimyu0218/swagger-decorator-builder#readme"
 }
