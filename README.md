@@ -11,10 +11,10 @@ The existing Swagger decorators often result in lengthy code, impacting readabil
 
 export const FindAllCatsDecorator = (target: string, returnType: any) =>
   new SwaggerDecoratorBuilder(target, 'GET', returnType)
-    .remove(401)
+    .remove(401) // remove unnecessary response
     .remove(403)
     .remove(404)
-    .build();
+    .build(); // make custom decorator
 
 export const UpdateCatDecorator = (
   target: string,
@@ -22,10 +22,10 @@ export const UpdateCatDecorator = (
   body: SwaggerBody,
 ) =>
   new SwaggerDecoratorBuilder(target, 'PATCH')
-    .setParam(param)
-    .setBody(body)
-    .add(403, 'Forbidden - Unauthorized User') // overwrite 403 error message
-    .build();
+    .setParam(param) // set param
+    .setBody(body) // set body
+    .add({ status: 403, description: 'Forbidden - Unauthorized User' }) // overwrite 403 error message
+    .build(); // make custom decorator
 ```
 
 ### Conclusion ✨
