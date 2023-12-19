@@ -41,7 +41,7 @@ export class SwaggerDecoratorBuilder {
    * @returns {SwaggerDecoratorBuilder}
    */
   add(response: SwaggerResponse): SwaggerDecoratorBuilder {
-    this.response.set(response.status, this.makeResponse(response));
+    this.response.set(response.status, this.makeApiResponse(response));
     return this;
   }
 
@@ -113,12 +113,12 @@ export class SwaggerDecoratorBuilder {
   private makeDefaultApiResponses(returnType?: any): void {
     this.response.set(
       200,
-      this.makeResponse({ status: 200, type: returnType }),
+      this.makeApiResponse({ status: 200, type: returnType }),
     );
-    this.response.set(401, this.makeResponse({ status: 401 }));
-    this.response.set(403, this.makeResponse({ status: 403 }));
-    this.response.set(404, this.makeResponse({ status: 404 }));
-    this.response.set(500, this.makeResponse({ status: 500 }));
+    this.response.set(401, this.makeApiResponse({ status: 401 }));
+    this.response.set(403, this.makeApiResponse({ status: 403 }));
+    this.response.set(404, this.makeApiResponse({ status: 404 }));
+    this.response.set(500, this.makeApiResponse({ status: 500 }));
   }
 
   /**
@@ -126,7 +126,7 @@ export class SwaggerDecoratorBuilder {
    * @param {SwaggerResponse} response
    * @returns {MethodDecorator}
    */
-  private makeResponse(response: SwaggerResponse): MethodDecorator {
+  private makeApiResponse(response: SwaggerResponse): MethodDecorator {
     if (!response.description) {
       response.description = STATUS_CODES[response.status];
     }
