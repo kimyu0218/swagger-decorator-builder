@@ -25,18 +25,28 @@ export class SwaggerDecoratorBuilder {
     return this;
   }
 
+  /**
+   * Make @ApiParam() decorator
+   * @param {SwaggerParam} param
+   * @returns {SwaggerDecoratorBuilder}
+   */
   setParam(param: SwaggerParam): SwaggerDecoratorBuilder {
     this.param = this.makeApiParam(param);
     return this;
   }
 
+  /**
+   * Make @ApiBody() decorator
+   * @param {SwaggerBody} body
+   * @returns {SwaggerDecoratorBuilder}
+   */
   setBody(body: SwaggerBody): SwaggerDecoratorBuilder {
     this.body = this.makeApiBody(body);
     return this;
   }
 
   /**
-   * Add Api Response
+   * Add or revise api response
    * @param {SwaggerResponse} response
    * @returns {SwaggerDecoratorBuilder}
    */
@@ -46,8 +56,8 @@ export class SwaggerDecoratorBuilder {
   }
 
   /**
-   * Remove Api Response
-   * @param {ResponseStatus} status - Http Response Status
+   * Remove api response
+   * @param {ResponseStatus} status - http response status
    * @returns {SwaggerDecoratorBuilder}
    */
   remove(status: ResponseStatus): SwaggerDecoratorBuilder {
@@ -56,7 +66,7 @@ export class SwaggerDecoratorBuilder {
   }
 
   /**
-   * Return Custom Decorator
+   * Return custom decorator
    */
   build() {
     const decorators: MethodDecorator[] = [this.operation];
@@ -73,9 +83,9 @@ export class SwaggerDecoratorBuilder {
   }
 
   /**
-   * Make @ApiOperation() Decorator
-   * @param {string} target - Target resquested by Client
-   * @param {HttpMethods} method - Action requested by Client
+   * Make @ApiOperation() decorator
+   * @param {string} target - target resquested by client
+   * @param {HttpMethods} method - action requested by client
    * @returns {MethodDecorator}
    */
   private makeApiOperation(
@@ -86,7 +96,7 @@ export class SwaggerDecoratorBuilder {
   }
 
   /**
-   * Make @ApiParam() Decorator
+   * Make @ApiParam() decorator
    * @param {SwaggerParam} param
    * @returns {MethodDecorator}
    */
@@ -95,7 +105,7 @@ export class SwaggerDecoratorBuilder {
   }
 
   /**
-   * Make @ApiBody() Decorator
+   * Make @ApiBody() decorator
    * @param {SwaggerBody} body
    * @returns {MethodDecorator}
    */
@@ -104,7 +114,7 @@ export class SwaggerDecoratorBuilder {
   }
 
   /**
-   * Make Api Response Decorators
+   * Make @ApiResponse() decorators
    * @param {SwaggerResponse} response
    * @returns {MethodDecorator}
    */
@@ -116,11 +126,12 @@ export class SwaggerDecoratorBuilder {
   }
 
   /**
-   * Automatically Make Default Api Response Decorators
+   * Automatically make default api response decorators
+   *
    * You can add and remove response decorators
    * by calling add() and remove() methods.
    *
-   * @param {any} returnType - Return Type if the request is successful
+   * @param {any} returnType - Return type if the request is successful
    */
   private makeDefaultApiResponses(returnType?: any): void {
     this.response.set(
