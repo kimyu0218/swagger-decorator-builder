@@ -1,5 +1,10 @@
 ## Swagger Decorator Builder 🛠️
 
+### Installation ⬇️
+```bash
+npm i swagger-decorator-builder
+```
+
 ### Introduction 👀
 
 This project is a Swagger Decorator Builder designed to **simplify the creation of Swagger decorators for API documentation**. 
