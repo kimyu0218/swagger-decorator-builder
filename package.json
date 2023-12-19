@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "description": "This project is a Swagger Decorator Builder designed to **simplify the creation of Swagger decorators for API documentation**.",
   "author": "kimyu0218",
-  "private": true,
   "license": "UNLICENSED",
   "scripts": {
     "build": "nest build",
