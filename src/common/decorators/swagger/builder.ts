@@ -102,9 +102,7 @@ export class SwaggerDecoratorBuilder {
    * You can add and delete response decorators
    * by calling add() and remove() methods.
    *
-   * @param target - Target resquested by Client
-   * @param method - Action requested by Client
-   * @param returnType - Return Type if the request is successful
+   * @param {any} returnType - Return Type if the request is successful
    */
   private makeDefaultApiResponses(returnType?: any): void {
     this.response.set(200, this.makeResponse(200, undefined, returnType));
@@ -116,8 +114,9 @@ export class SwaggerDecoratorBuilder {
 
   /**
    * Make Api Response Decorators
-   * @param code - Http Response Code
-   * @param desciption - Description of the Api Response
+   * @param {ResponseCode} code - Http Response Code
+   * @param {string} desciption - Description of the Api Response
+   * @param {any} returnType - Return Type if the request is successful
    * @returns {MethodDecorator}
    */
   private makeResponse(
