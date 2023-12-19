@@ -10,6 +10,9 @@ import { STATUS_CODES } from 'http';
 import { SwaggerBody, SwaggerParam, SwaggerResponse } from './interfaces';
 import { HttpMethods, ResponseStatus } from './types';
 
+export * from './types';
+export * from './interfaces';
+
 export class SwaggerDecoratorBuilder {
   operation: MethodDecorator;
   param?: MethodDecorator;
