@@ -1,5 +1,8 @@
 import { SwaggerDecoratorBuilder } from 'src/common/decorators/swagger/builder';
-import { SwaggerBody, SwaggerParam } from 'src/common/decorators/swagger/types';
+import {
+  SwaggerBody,
+  SwaggerParam,
+} from 'src/common/decorators/swagger/interfaces';
 
 export const CreateCatDecorator = (target: string, body: SwaggerBody) =>
   new SwaggerDecoratorBuilder(target, 'POST').setBody(body).remove(403).build();
@@ -29,7 +32,7 @@ export const UpdateCatDecorator = (
   new SwaggerDecoratorBuilder(target, 'PATCH')
     .setParam(param)
     .setBody(body)
-    .add(403, 'Forbidden - Unauthorized User') // overwrite 403 error message
+    .add({ status: 403, description: 'Forbidden - Unauthorized User' }) // overwrite 403 error message
     .build();
 
 export const DeleteCatDecorator = (target: string, param: SwaggerParam) =>

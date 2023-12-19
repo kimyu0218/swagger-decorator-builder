@@ -1,14 +1,21 @@
 import { applyDecorators } from '@nestjs/common';
-import { ApiBody, ApiOperation, ApiParam, ApiResponse } from '@nestjs/swagger';
-import { API_DESCRIPTION } from './constants';
-import { HttpMethods, ResponseCode, SwaggerBody, SwaggerParam } from './types';
+import {
+  ApiBody,
+  ApiOperation,
+  ApiParam,
+  ApiResponse,
+  ApiResponseOptions,
+} from '@nestjs/swagger';
+import { STATUS_CODES } from 'http';
+import { SwaggerBody, SwaggerParam, SwaggerResponse } from './interfaces';
+import { HttpMethods, ResponseStatus } from './types';
 
 export class SwaggerDecoratorBuilder {
   operation: MethodDecorator;
   param?: MethodDecorator;
   body?: MethodDecorator;
-  response: Map<ResponseCode, MethodDecorator> = new Map<
-    ResponseCode,
+  response: Map<ResponseStatus, MethodDecorator> = new Map<
+    ResponseStatus,
     MethodDecorator
   >();
 
@@ -30,22 +37,21 @@ export class SwaggerDecoratorBuilder {
 
   /**
    * Add Api Response
-   * @param {ResponseCode} code - Http Response Code
-   * @param {string} description - Description of the Api Response
+   * @param {SwaggerResponse} response
    * @returns {SwaggerDecoratorBuilder}
    */
-  add(code: ResponseCode, description: string): SwaggerDecoratorBuilder {
-    this.response.set(code, this.makeResponse(code, description));
+  add(response: SwaggerResponse): SwaggerDecoratorBuilder {
+    this.response.set(response.status, this.makeResponse(response));
     return this;
   }
 
   /**
    * Remove Api Response
-   * @param {ResponseCode} code - Http Response Code
+   * @param {ResponseStatus} status - Http Response Status
    * @returns {SwaggerDecoratorBuilder}
    */
-  remove(code: ResponseCode): SwaggerDecoratorBuilder {
-    this.response.delete(code);
+  remove(status: ResponseStatus): SwaggerDecoratorBuilder {
+    this.response.delete(status);
     return this;
   }
 
@@ -81,16 +87,16 @@ export class SwaggerDecoratorBuilder {
 
   /**
    * Make @ApiParam() Decorator
-   * @param {any} param
+   * @param {SwaggerParam} param
    * @returns {MethodDecorator}
    */
-  private makeApiParam(param: any): MethodDecorator {
+  private makeApiParam(param: SwaggerParam): MethodDecorator {
     return ApiParam(param);
   }
 
   /**
    * Make @ApiBody() Decorator
-   * @param {any} body
+   * @param {SwaggerBody} body
    * @returns {MethodDecorator}
    */
   private makeApiBody(body: SwaggerBody): MethodDecorator {
@@ -99,35 +105,31 @@ export class SwaggerDecoratorBuilder {
 
   /**
    * Automatically Make Default Api Response Decorators
-   * You can add and delete response decorators
+   * You can add and remove response decorators
    * by calling add() and remove() methods.
    *
    * @param {any} returnType - Return Type if the request is successful
    */
   private makeDefaultApiResponses(returnType?: any): void {
-    this.response.set(200, this.makeResponse(200, undefined, returnType));
-    this.response.set(401, this.makeResponse(401));
-    this.response.set(403, this.makeResponse(403));
-    this.response.set(404, this.makeResponse(404));
-    this.response.set(500, this.makeResponse(500));
+    this.response.set(
+      200,
+      this.makeResponse({ status: 200, type: returnType }),
+    );
+    this.response.set(401, this.makeResponse({ status: 401 }));
+    this.response.set(403, this.makeResponse({ status: 403 }));
+    this.response.set(404, this.makeResponse({ status: 404 }));
+    this.response.set(500, this.makeResponse({ status: 500 }));
   }
 
   /**
    * Make Api Response Decorators
-   * @param {ResponseCode} code - Http Response Code
-   * @param {string} desciption - Description of the Api Response
-   * @param {any} returnType - Return Type if the request is successful
+   * @param {SwaggerResponse} response
    * @returns {MethodDecorator}
    */
-  private makeResponse(
-    code: ResponseCode,
-    desciption?: string,
-    returnType?: any,
-  ): MethodDecorator {
-    return ApiResponse({
-      status: code,
-      description: desciption ? desciption : API_DESCRIPTION[code],
-      type: returnType ? returnType : undefined,
-    });
+  private makeResponse(response: SwaggerResponse): MethodDecorator {
+    if (!response.description) {
+      response.description = STATUS_CODES[response.status];
+    }
+    return ApiResponse(response as ApiResponseOptions);
   }
 }
