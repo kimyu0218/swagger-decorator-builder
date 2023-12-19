@@ -1,14 +1,13 @@
-export type HttpMethods = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
+import { STATUS_CODES } from 'http';
 
-export type ResponseCode = 200 | 400 | 401 | 403 | 404 | 409 | 500 | 502;
+export type HttpMethods =
+  | 'GET'
+  | 'HEAD'
+  | 'PUT'
+  | 'POST'
+  | 'PATCH'
+  | 'DELETE'
+  | 'TRACE'
+  | 'OPTIONS';
 
-export interface SwaggerParam {
-  type: string;
-  name: string;
-  description?: string;
-}
-
-export interface SwaggerBody {
-  type: any;
-  description?: string;
-}
+export type ResponseStatus = number & keyof typeof STATUS_CODES;
