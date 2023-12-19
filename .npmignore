@@ -1,5 +1,4 @@
 node_modules/
-dist/
 
 *.config.js
 *.tsbuildinfo
@@ -28,4 +27,5 @@ tsconfig*.json
 
 .vscode/
 
-src/cats/*
+src/
+*.spec.ts

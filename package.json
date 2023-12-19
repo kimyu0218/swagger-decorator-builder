@@ -2,22 +2,24 @@
   "name": "swagger-decorator-builder",
   "version": "0.0.1",
   "description": "This project is a Swagger Decorator Builder designed to **simplify the creation of Swagger decorators for API documentation**.",
-  "author": "kimyu0218",
-  "license": "UNLICENSED",
+  "author": "kimyu0218 <serena35@naver.com>",
+  "license": "MIT",
   "type": "module",
+  "main": "dist/common/decorators/swagger/builder.js",
+  "module": "dist/common/decorators/swagger/builder.js",
+  "typings": "dist/common/decorators/swagger/builder.d.ts",
+  "files": [
+    "dist/common/decorators/swagger/"
+  ],
   "scripts": {
     "build": "nest build",
+    "prepublishOnly": "npm run build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
-    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:cov": "jest --coverage",
-    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix"
   },
   "dependencies": {
     "@nestjs/common": "^10.3.0",
@@ -68,7 +70,6 @@
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
   },
-  "main": "src/common/decorators/swagger/builder.ts",
   "directories": {
     "test": "test"
   },
@@ -77,7 +78,13 @@
     "url": "git+ssh://git@github.com/kimyu0218/swagger-decorator-builder.git"
   },
   "bugs": {
-    "url": "https://github.com/kimyu0218/swagger-decorator-builder/issues"
+    "url": "https://github.com/kimyu0218/swagger-decorator-builder/issues",
+    "email": "serena35@naver.com"
   },
-  "homepage": "https://github.com/kimyu0218/swagger-decorator-builder#readme"
+  "homepage": "https://github.com/kimyu0218/swagger-decorator-builder#readme",
+  "keywords": [
+    "swagger",
+    "decorator",
+    "api"
+  ]
 }
