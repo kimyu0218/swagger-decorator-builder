@@ -104,6 +104,18 @@ export class SwaggerDecoratorBuilder {
   }
 
   /**
+   * Make Api Response Decorators
+   * @param {SwaggerResponse} response
+   * @returns {MethodDecorator}
+   */
+  private makeApiResponse(response: SwaggerResponse): MethodDecorator {
+    if (!response.description) {
+      response.description = STATUS_CODES[response.status];
+    }
+    return ApiResponse(response as ApiResponseOptions);
+  }
+
+  /**
    * Automatically Make Default Api Response Decorators
    * You can add and remove response decorators
    * by calling add() and remove() methods.
@@ -119,17 +131,5 @@ export class SwaggerDecoratorBuilder {
     this.response.set(403, this.makeApiResponse({ status: 403 }));
     this.response.set(404, this.makeApiResponse({ status: 404 }));
     this.response.set(500, this.makeApiResponse({ status: 500 }));
-  }
-
-  /**
-   * Make Api Response Decorators
-   * @param {SwaggerResponse} response
-   * @returns {MethodDecorator}
-   */
-  private makeApiResponse(response: SwaggerResponse): MethodDecorator {
-    if (!response.description) {
-      response.description = STATUS_CODES[response.status];
-    }
-    return ApiResponse(response as ApiResponseOptions);
   }
 }
