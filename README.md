@@ -1,6 +1,6 @@
 ## Swagger Decorator Builder 🛠️
 
-### Introduction
+### Introduction 👀
 
 This project is a Swagger Decorator Builder designed to **simplify the creation of Swagger decorators for API documentation**. 
 
@@ -28,14 +28,15 @@ export const UpdateCatDecorator = (
     .build();
 ```
 
-### Conclusion
+### Conclusion ✨
 
 The Swagger Decorator Builder facilitates the creation of **concise and readable API documentation**. 
 
 The introduction of the builder pattern streamlines code writing, making API documentation management more efficient. Through this project, users can write cleaner code and effectively manage API documentation.
 
-<br>
 
-### Ongoing Development
+### Ongoing Development 🏃
 
 It's important to note that this project is **still in development**. My goal is to align with and enhance the Swagger decorators based on the official Swagger documentation.
+
+[[KR] 나는 왜 Swagger Decorator Builder를 만들었을까?](https://github.com/kimyu0218/swagger-decorator-builder/wiki/%EB%82%98%EB%8A%94-%EC%99%9C-Swagger-Decorator-Builder%EB%A5%BC-%EB%A7%8C%EB%93%A4%EC%97%88%EC%9D%84%EA%B9%8C%3F)
