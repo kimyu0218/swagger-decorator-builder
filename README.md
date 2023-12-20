@@ -1,13 +1,14 @@
 ## Swagger Decorator Builder 🛠️
 
 ### Installation ⬇️
+
 ```bash
-npm i swagger-decorator-builder
+npm i @kimyu0218/swagger-decorator-builder
 ```
 
 ### Introduction 👀
 
-This project is a Swagger Decorator Builder designed to **simplify the creation of Swagger decorators for API documentation**. 
+This project is a Swagger Decorator Builder designed to **simplify the creation of Swagger decorators for API documentation**.
 
 The existing Swagger decorators often result in lengthy code, impacting readability. In response to this issue, I initiated this project to create custom decorators using a **builder pattern**, aiming for more concise and efficient decorator composition.
 
@@ -35,10 +36,9 @@ export const UpdateCatDecorator = (
 
 ### Conclusion ✨
 
-The Swagger Decorator Builder facilitates the creation of **concise and readable API documentation**. 
+The Swagger Decorator Builder facilitates the creation of **concise and readable API documentation**.
 
 The introduction of the builder pattern streamlines code writing, making API documentation management more efficient. Through this project, users can write cleaner code and effectively manage API documentation.
-
 
 ### Ongoing Development 🏃
 
