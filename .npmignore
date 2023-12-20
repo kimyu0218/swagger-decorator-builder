@@ -28,4 +28,3 @@ tsconfig*.json
 .vscode/
 
 src/
-*.spec.ts
