@@ -1,5 +1,5 @@
 /**
- * You cas make custom swagger decorators
+ * You can make custom swagger decorators
  * by using SwaggerDecoratorBuilder!!
  */
 import { SwaggerDecoratorBuilder } from 'src/common/decorators/swagger/builder';
@@ -17,8 +17,10 @@ import {
 export const CreateCatDecorator = (target: string, body: SwaggerBody) =>
   new SwaggerDecoratorBuilder(target, 'POST')
     .setBody(body)
+    .remove(200)
     .remove(403)
     .remove(404)
+    .add({ status: 201, description: 'create cat' }) // add 201 api response
     .build();
 
 /**
@@ -66,7 +68,7 @@ export const UpdateCatDecorator = (
   new SwaggerDecoratorBuilder(target, 'PATCH')
     .setParam(param)
     .setBody(body)
-    .add({ status: 403, description: 'Forbidden - Unauthorized User' }) // overwrite 403 error message
+    .add({ status: 403, description: 'Forbidden - Unauthorized User' }) // overwrite 403 api response description
     .build();
 
 /**
