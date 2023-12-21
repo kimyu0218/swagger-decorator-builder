@@ -30,8 +30,49 @@ export const UpdateCatDecorator = (
   new SwaggerDecoratorBuilder(target, 'PATCH')
     .setParam(param) // set param
     .setBody(body) // set body
-    .add({ status: 403, description: 'Forbidden - Unauthorized User' }) // overwrite 403 error message
+    .add({ status: 403, description: 'Forbidden - Unauthorized User' }) // overwrite 403 api response description
     .build(); // make custom decorator
+```
+
+### How to Use ❓
+
+1. Import `SwaggerDecoratorBuilder` class.
+
+```ts
+import { SwaggerDecoratorBuilder } from '@kimyu0218/swagger-decorator-builder';
+```
+
+2. Pass `target`, `method` parameters to the constructor. The builder will automatically create a summary of `@ApiOperation()` decorator. If you want to put a `returnType` in `@ApiOkResponse()`, you can optionally hand over the `returnType`!
+
+```ts
+new SwaggerDecoratorBuilder(target, 'GET', returnType);
+```
+
+3. If needed, use the `setParam` and `setBody` methods to add `@ApiParam()` and `@ApiBody()` decorators.
+
+```ts
+new SwaggerDecoratorBuilder(target, 'PATCH').setParam(param).setBody(body);
+```
+
+4. Use the `add` method to set additional API response decorators. (By default, responses for status codes 200, 401, 403, 404, and 500 are generated.) You can also remove default response by `remove` method.
+
+```ts
+new SwaggerDecoratorBuilder(target, 'POST')
+  .setBody(body)
+  .remove(200)
+  .remove(403)
+  .remove(404)
+  .add({ status: 201, description: 'create cat' });
+```
+
+5. Call the `build` method to get the final decorator!!
+
+```ts
+new SwaggerDecoratorBuilder(target, 'GET', returnType)
+  .remove(401)
+  .remove(403)
+  .remove(404)
+  .build();
 ```
 
 ### Conclusion ✨
@@ -39,6 +80,16 @@ export const UpdateCatDecorator = (
 The Swagger Decorator Builder facilitates the creation of **concise and readable API documentation**.
 
 The introduction of the builder pattern streamlines code writing, making API documentation management more efficient. Through this project, users can write cleaner code and effectively manage API documentation.
+
+```ts
+@Patch(':id')
+@UpdateCatDecorator(
+  'Cat',
+  { type: 'uuid', name: 'id', description: 'identifier of cat' },
+  { type: UpdateCatDto, description: 'update dto of cat' },
+)
+update(@Param('id') id: string, @Body() updateCatDto: UpdateCatDto) {}
+```
 
 ### Ongoing Development 🏃
 
