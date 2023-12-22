@@ -1,5 +1,7 @@
 ## Swagger Decorator Builder 🛠️
 
+![npm](https://img.shields.io/npm/v/@kimyu0218/swagger-decorator-builder) ![npm](https://img.shields.io/npm/dt/%40kimyu0218%2Fswagger-decorator-builder)
+
 ### Installation ⬇️
 
 ```bash
