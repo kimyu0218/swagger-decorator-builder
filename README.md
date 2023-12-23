@@ -1,6 +1,6 @@
 ## Swagger Decorator Builder 🛠️
 
-![npm](https://img.shields.io/npm/v/@kimyu0218/swagger-decorator-builder) ![npm](https://img.shields.io/npm/dt/%40kimyu0218%2Fswagger-decorator-builder)
+![npm](https://img.shields.io/npm/v/@kimyu0218/swagger-decorator-builder) ![npm](https://img.shields.io/npm/dt/@kimyu0218/swagger-decorator-builder)
 
 ### Installation ⬇️
 
@@ -98,3 +98,5 @@ update(@Param('id') id: string, @Body() updateCatDto: UpdateCatDto) {}
 It's important to note that this project is **still in development**. My goal is to align with and enhance the Swagger decorators based on the official Swagger documentation.
 
 [[KR] 나는 왜 Swagger Decorator Builder를 만들었을까?](https://github.com/kimyu0218/swagger-decorator-builder/wiki/%EB%82%98%EB%8A%94-%EC%99%9C-Swagger-Decorator-Builder%EB%A5%BC-%EB%A7%8C%EB%93%A4%EC%97%88%EC%9D%84%EA%B9%8C%3F)
+
+[[KR] 누구나 사용할 수 있는 패키지를 만들자](https://github.com/kimyu0218/swagger-decorator-builder/wiki/%EB%88%84%EA%B5%AC%EB%82%98-%EC%82%AC%EC%9A%A9%ED%95%A0-%EC%88%98-%EC%9E%88%EB%8A%94-%ED%8C%A8%ED%82%A4%EC%A7%80%EB%A5%BC-%EB%A7%8C%EB%93%A4%EC%9E%90)
