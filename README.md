@@ -15,12 +15,6 @@ This project is a Swagger Decorator Builder designed to **simplify the creation 
 The existing Swagger decorators often result in lengthy code, impacting readability. In response to this issue, I initiated this project to create custom decorators using a **builder pattern**, aiming for more concise and efficient decorator composition.
 
 ```ts
-/**
- * Create a custom Swagger decorator for finding all cats
- * @param {string} target - The target requested by the client.
- * @param {any} returnType - The return type when the HTTP response code is 200.
- * @returns
- */
 export const FindAllCatsDecorator = (target: string, returnType: any) =>
   new SwaggerDecoratorBuilder(target, 'GET', returnType)
     .removeResponse(401) // Remove the default 401 API response.
@@ -28,13 +22,6 @@ export const FindAllCatsDecorator = (target: string, returnType: any) =>
     .removeResponse(404) // Remove the default 404 API response.
     .build();
 
-/**
- * Make custom decorator for updating specific cat
- * @param {string} target - The target requested by the client.
- * @param {ApiParamOptions} param - The Swagger options for the request param.
- * @param {ApiBodyOptions} body - The Swagger options for the request body.
- * @returns
- */
 export const UpdateCatDecorator = (
   target: string,
   param: ApiParamOptions,
