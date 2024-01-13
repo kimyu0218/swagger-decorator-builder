@@ -1,81 +1,80 @@
 /**
- * You can make custom swagger decorators
+ * You can make custom Swagger decorators
  * by using SwaggerDecoratorBuilder!!
  */
-import { SwaggerDecoratorBuilder } from 'src/common/decorators/swagger/builder';
-import {
-  SwaggerBody,
-  SwaggerParam,
-} from 'src/common/decorators/swagger/interfaces';
+import { ApiBodyOptions, ApiParamOptions } from '@nestjs/swagger';
+import { SwaggerDecoratorBuilder } from 'src/swagger-decorator-builder';
 
 /**
- * Make custom decorator for creating a cat
- * @param {string} target
- * @param {SwaggerBody} body
+ * Create a custom Swagger decorator for creating a cat.
+ * @param {string} target - The target requested by the client.
+ * @param {ApiBodyOptions} body - The Swagger options for the request body.
  * @returns
  */
-export const CreateCatDecorator = (target: string, body: SwaggerBody) =>
+export const CreateCatDecorator = (target: string, body: ApiBodyOptions) =>
   new SwaggerDecoratorBuilder(target, 'POST')
-    .setBody(body)
-    .remove(200)
-    .remove(403)
-    .remove(404)
-    .add({ status: 201, description: 'create cat' }) // add 201 api response
+    .setBody(body) // Set the request body.
+    .removeResponse(200) // Remove default 200 API response.
+    .removeResponse(403) // Remove default 403 API response.
+    .removeResponse(404) // Remove default 404 API response.
+    .addResponse({ status: 201, description: 'create cat' }) // Add 201 API response.
     .build();
 
 /**
- * Make custom decorator for finding all cats
- * @param {string} target
- * @param {any} returnType
+ * Create a custom Swagger decorator for finding all cats
+ * @param {string} target - The target requested by the client.
+ * @param {any} returnType - The return type when the HTTP response code is 200.
  * @returns
  */
 export const FindAllCatsDecorator = (target: string, returnType: any) =>
   new SwaggerDecoratorBuilder(target, 'GET', returnType)
-    .remove(401)
-    .remove(403)
-    .remove(404)
+    .removeResponse(401) // Remove the default 401 API response.
+    .removeResponse(403) // Remove the default 403 API response.
+    .removeResponse(404) // Remove the default 404 API response.
     .build();
 
 /**
  * Make custom decorator for findign specific cat
- * @param  {string} target
- * @param {SwaggerParam} param
- * @param {any} returnType
+ * @param  {string} target - The target requested by the client.
+ * @param {ApiParamOptions} param - The Swagger options for the request param.
+ * @param {any} returnType - The return type when the HTTP response code is 200.
  * @returns
  */
 export const FindCatDecorator = (
   target: string,
-  param: SwaggerParam,
+  param: ApiParamOptions,
   returnType: any,
 ) =>
   new SwaggerDecoratorBuilder(target, 'GET', returnType)
-    .setParam(param)
-    .remove(403)
+    .addParam(param) // Set the request param.
+    .removeResponse(403) // Remove the default 403 API response.
     .build();
 
 /**
  * Make custom decorator for updating specific cat
- * @param {string} target
- * @param {SwaggerParam} param
- * @param {SwaggerBody} body
+ * @param {string} target - The target requested by the client.
+ * @param {ApiParamOptions} param - The Swagger options for the request param.
+ * @param {ApiBodyOptions} body - The Swagger options for the request body.
  * @returns
  */
 export const UpdateCatDecorator = (
   target: string,
-  param: SwaggerParam,
-  body: SwaggerBody,
+  param: ApiParamOptions,
+  body: ApiBodyOptions,
 ) =>
   new SwaggerDecoratorBuilder(target, 'PATCH')
-    .setParam(param)
-    .setBody(body)
-    .add({ status: 403, description: 'Forbidden - Unauthorized User' }) // overwrite 403 api response description
+    .addParam(param) // Set the request param.
+    .setBody(body) // Set the request body.
+    .addResponse({ status: 403, description: 'Forbidden - Unauthorized User' }) // Overwrite the default 403 API response.
     .build();
 
 /**
  * Make custom decorator for deleting specific cat
- * @param {string} target
- * @param {SwaggerParam} param
+ * @param {string} target - The target requested by the client.
+ * @param {ApiParamOptions} param - The Swagger options for the request param.
  * @returns
  */
-export const DeleteCatDecorator = (target: string, param: SwaggerParam) =>
-  new SwaggerDecoratorBuilder(target, 'DELETE').setParam(param).build();
+export const DeleteCatDecorator = (target: string, param: ApiParamOptions) =>
+  new SwaggerDecoratorBuilder(target, 'DELETE')
+    .addParam(param) // Set the request param.
+    .build();

@@ -15,9 +15,7 @@ import {
   FindCatDecorator,
   UpdateCatDecorator,
 } from './cats.decorator';
-import { CreateCatDto } from './dto/create-cat.dto';
-import { FindCatDto } from './dto/find-cat.dto';
-import { UpdateCatDto } from './dto/update-cat.dto';
+import { CreateCatDto, FindCatDto, UpdateCatDto } from './dto';
 
 @Controller('cats')
 @ApiTags('🐱 cat')
