@@ -4,11 +4,11 @@
   "description": "This project is a Swagger Decorator Builder designed to **simplify the creation of Swagger decorators for API documentation**.",
   "author": "kimyu0218 <serena35@naver.com>",
   "license": "MIT",
-  "main": "dist/common/decorators/swagger/builder.js",
-  "module": "dist/common/decorators/swagger/builder.js",
-  "typings": "dist/common/decorators/swagger/builder.d.ts",
+  "main": "dist/swagger-decorator",
+  "module": "dist/swagger-decorator",
+  "typings": "dist/swagger-decorator",
   "files": [
-    "dist/common/decorators/swagger/"
+    "dist/swagger-decorator/"
   ],
   "scripts": {
     "build": "nest build",
