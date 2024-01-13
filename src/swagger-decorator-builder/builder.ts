@@ -60,9 +60,8 @@ export class SwaggerDecoratorBuilder {
 
   /**
    * Build and return a custom decorator using the configured decorators.
-   * @returns {void}
    */
-  build(): void {
+  build() {
     const decorators: MethodDecorator[] = [];
     if (this.body) {
       decorators.push(this.body);
@@ -79,7 +78,7 @@ export class SwaggerDecoratorBuilder {
     this.response.forEach((apiResponse: MethodDecorator) =>
       decorators.push(apiResponse),
     );
-    applyDecorators(...decorators);
+    return applyDecorators(...decorators);
   }
 
   /**
