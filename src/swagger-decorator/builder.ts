@@ -1,20 +1,17 @@
 import { applyDecorators } from '@nestjs/common';
 import {
   ApiBody,
+  ApiBodyOptions,
   ApiOperation,
+  ApiOperationOptions,
   ApiParam,
+  ApiParamOptions,
   ApiQuery,
+  ApiQueryOptions,
   ApiResponse,
   ApiResponseOptions,
 } from '@nestjs/swagger';
 import { STATUS_CODES } from 'http';
-import {
-  SwaggerBody,
-  SwaggerOperation,
-  SwaggerParam,
-  SwaggerQuery,
-  SwaggerResponse,
-} from './interfaces';
 import { HttpMethods, SwaggerHttpStatus } from './types';
 
 /**
@@ -43,10 +40,10 @@ export class SwaggerDecoratorBuilder {
 
   /**
    * Add or revise API response.
-   * @param {SwaggerResponse} response - The Swagger response configuration.
+   * @param {ApiResponseOptions} response - The Swagger response configuration.
    * @returns {this}
    */
-  add(response: SwaggerResponse): this {
+  add(response: ApiResponseOptions): this {
     this.response.set(response.status, this.makeApiResponse(response));
     return this;
   }
@@ -87,86 +84,86 @@ export class SwaggerDecoratorBuilder {
 
   /**
    * Set the @ApiBody decorator.
-   * @param {SwaggerBody} body - The Swagger body configuration.
+   * @param {ApiBodyOptions} body - The Swagger body configuration.
    * @returns {this}
    */
-  setBody(body: SwaggerBody): this {
+  setBody(body: ApiBodyOptions): this {
     this.body = this.makeApiBody(body);
     return this;
   }
 
   /**
    * Set the @ApiOperation decorator.
-   * @param {SwaggerOperation} operation - The Swagger operation configuration.
+   * @param {ApiOperationOptions} operation - The Swagger operation configuration.
    * @returns {this}
    */
-  setOperation(operation: SwaggerOperation): this {
+  setOperation(operation: ApiOperationOptions): this {
     this.makeApiOperation(operation);
     return this;
   }
 
   /**
    * Set the @ApiParam decorator.
-   * @param {SwaggerParam} param - The Swagger param configuration.
+   * @param {ApiParamOptions} param - The Swagger param configuration.
    * @returns {this}
    */
-  setParam(param: SwaggerParam): this {
+  setParam(param: ApiParamOptions): this {
     this.param = this.makeApiParam(param);
     return this;
   }
 
   /**
    * Set the @ApiQuery decorator.
-   * @param {SwaggerQuery} query - The Swagger query configuration.
+   * @param {ApiQueryOptions} query - The Swagger query configuration.
    * @returns {this}
    */
-  setQuery(query: SwaggerQuery): this {
+  setQuery(query: ApiQueryOptions): this {
     this.makeApiQuery(query);
     return this;
   }
 
   /**
    * Make the @ApiBody decorator.
-   * @param {SwaggerBody} body - The Swagger body configuration.
+   * @param {ApiBodyOptions} body - The Swagger body configuration.
    * @returns {MethodDecorator} - The generated @ApiBody decorator.
    */
-  private makeApiBody(body: SwaggerBody): MethodDecorator {
+  private makeApiBody(body: ApiBodyOptions): MethodDecorator {
     return ApiBody(body);
   }
 
   /**
    * Make the @ApiOperation decorator.
-   * @param {SwaggerOperation} operation - The Swagger operation configuration.
+   * @param {ApiOperationOptions} operation - The Swagger operation configuration.
    * @returns {MethodDecorator} - The generated @ApiOperation decorator.
    */
-  private makeApiOperation(operation: SwaggerOperation): MethodDecorator {
+  private makeApiOperation(operation: ApiOperationOptions): MethodDecorator {
     return ApiOperation(operation);
   }
 
   /**
    * Make the @ApiParam decorator.
-   * @param {SwaggerParam} param - The Swagger param configuration.
+   * @param {ApiParamOptions} param - The Swagger param configuration.
    * @returns {MethodDecorator} - The generated @ApiParam decorator.
    */
-  private makeApiParam(param: SwaggerParam): MethodDecorator {
+  private makeApiParam(param: ApiParamOptions): MethodDecorator {
     return ApiParam(param);
   }
 
   /**
    * Make the @ApiQuery decorator.
-   * @param {SwaggerQuery} query - The Swagger query configuration.
+   * @param {ApiQueryOptions} query - The Swagger query configuration.
    * @returns {MethodDecorator} - The generated @ApiQuery decorator.
    */
-  private makeApiQuery(query: SwaggerQuery): MethodDecorator {
+  private makeApiQuery(query: ApiQueryOptions): MethodDecorator {
     return ApiQuery(query);
   }
 
   /**
    * Make the @ApiResponse decorator.
-   * @param {SwaggerResponse} response - The Swagger response configuration.
+   * @param {ApiResponseOptions} response - The Swagger response configuration.
    * @returns {MethodDecorator} - The generated @ApiResponse decorator.
    */
-  private makeApiResponse(response: SwaggerResponse): MethodDecorator {
+  private makeApiResponse(response: ApiResponseOptions): MethodDecorator {
     if (!response.description && typeof response.status) {
       response.description = STATUS_CODES[response.status];
     }
