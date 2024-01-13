@@ -23,8 +23,8 @@ import { HttpMethods, SwaggerHttpStatus } from './types';
 export class SwaggerDecoratorBuilder {
   private body?: MethodDecorator;
   private operation?: MethodDecorator;
-  private param?: MethodDecorator;
-  private query?: MethodDecorator;
+  private param?: MethodDecorator[];
+  private query?: MethodDecorator[];
   private response?: Map<SwaggerHttpStatus, MethodDecorator> = new Map<
     SwaggerHttpStatus,
     MethodDecorator
@@ -39,11 +39,31 @@ export class SwaggerDecoratorBuilder {
   }
 
   /**
+   * Add the @ApiParam decorator.
+   * @param {ApiParamOptions} param - The Swagger param configuration.
+   * @returns {this}
+   */
+  addParam(param: ApiParamOptions): this {
+    this.param.push(this.makeApiParam(param));
+    return this;
+  }
+
+  /**
+   * Add the @ApiQuery decorator.
+   * @param {ApiQueryOptions} query - The Swagger query configuration.
+   * @returns {this}
+   */
+  addQuery(query: ApiQueryOptions): this {
+    this.query.push(this.makeApiQuery(query));
+    return this;
+  }
+
+  /**
    * Add or revise API response.
    * @param {ApiResponseOptions} response - The Swagger response configuration.
    * @returns {this}
    */
-  add(response: ApiResponseOptions): this {
+  addResponse(response: ApiResponseOptions): this {
     this.response.set(response.status, this.makeApiResponse(response));
     return this;
   }
@@ -53,16 +73,15 @@ export class SwaggerDecoratorBuilder {
    * @param {SwaggerHttpStatus} status - HTTP response status code.
    * @returns {this}
    */
-  remove(status: SwaggerHttpStatus): this {
+  removeResponse(status: SwaggerHttpStatus): this {
     this.response.delete(status);
     return this;
   }
 
   /**
    * Build and return a custom decorator using the configured decorators.
-   * @returns {void}
    */
-  build(): void {
+  build() {
     const decorators: MethodDecorator[] = [];
     if (this.body) {
       decorators.push(this.body);
@@ -70,16 +89,16 @@ export class SwaggerDecoratorBuilder {
     if (this.operation) {
       decorators.push(this.operation);
     }
-    if (this.param) {
-      decorators.push(this.param);
-    }
-    if (this.query) {
-      decorators.push(this.query);
-    }
+    this.param.forEach((apiParam: MethodDecorator) =>
+      decorators.push(apiParam),
+    );
+    this.query.forEach((apiQuery: MethodDecorator) =>
+      decorators.push(apiQuery),
+    );
     this.response.forEach((apiResponse: MethodDecorator) =>
       decorators.push(apiResponse),
     );
-    applyDecorators(...decorators);
+    return applyDecorators(...decorators);
   }
 
   /**
@@ -99,26 +118,6 @@ export class SwaggerDecoratorBuilder {
    */
   setOperation(operation: ApiOperationOptions): this {
     this.makeApiOperation(operation);
-    return this;
-  }
-
-  /**
-   * Set the @ApiParam decorator.
-   * @param {ApiParamOptions} param - The Swagger param configuration.
-   * @returns {this}
-   */
-  setParam(param: ApiParamOptions): this {
-    this.param = this.makeApiParam(param);
-    return this;
-  }
-
-  /**
-   * Set the @ApiQuery decorator.
-   * @param {ApiQueryOptions} query - The Swagger query configuration.
-   * @returns {this}
-   */
-  setQuery(query: ApiQueryOptions): this {
-    this.makeApiQuery(query);
     return this;
   }
 
