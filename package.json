@@ -1,6 +1,6 @@
 {
   "name": "@kimyu0218/swagger-decorator-builder",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "This project is a Swagger Decorator Builder designed to **simplify the creation of Swagger decorators for API documentation**.",
   "author": "kimyu0218 <serena35@naver.com>",
   "license": "MIT",
