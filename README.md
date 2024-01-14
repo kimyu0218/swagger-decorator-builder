@@ -2,11 +2,15 @@
 
 ![npm](https://img.shields.io/npm/v/@kimyu0218/swagger-decorator-builder) ![npm](https://img.shields.io/npm/dt/@kimyu0218/swagger-decorator-builder)
 
+<br>
+
 ### Installation ⬇️
 
 ```bash
 npm i @kimyu0218/swagger-decorator-builder
 ```
+
+<br>
 
 ### Introduction 👀
 
@@ -16,7 +20,7 @@ The existing Swagger decorators often result in lengthy code, impacting readabil
 
 ```ts
 export const FindAllCatsDecorator = (target: string, returnType: any) =>
-  new SwaggerDecoratorBuilder(target, 'GET', returnType)
+  new SwaggerDecoratorBuilder(target, 'GET', returnType) // Automatically set API operation summary. (target: 'cats' -> GET cats)
     .removeResponse(401) // Remove the default 401 API response.
     .removeResponse(403) // Remove the default 403 API response.
     .removeResponse(404) // Remove the default 404 API response.
@@ -27,12 +31,14 @@ export const UpdateCatDecorator = (
   param: ApiParamOptions,
   body: ApiBodyOptions,
 ) =>
-  new SwaggerDecoratorBuilder(target, 'PATCH')
+  new SwaggerDecoratorBuilder(target, 'PATCH') // Automatically set API operation summary. (target: 'cat' -> PATCH cat)
     .addParam(param) // Set the request param.
     .setBody(body) // Set the request body.
     .addResponse({ status: 403, description: 'Forbidden - Unauthorized User' }) // Overwrite the default 403 API response.
     .build();
 ```
+
+<br>
 
 ### How to Use ❓
 
@@ -75,6 +81,8 @@ new SwaggerDecoratorBuilder(target, 'GET', returnType)
   .build();
 ```
 
+<br>
+
 ### Conclusion ✨
 
 The Swagger Decorator Builder facilitates the creation of **concise and readable API documentation**.
@@ -90,6 +98,8 @@ The introduction of the builder pattern streamlines code writing, making API doc
 )
 update(@Param('id') id: string, @Body() updateCatDto: UpdateCatDto) {}
 ```
+
+<br>
 
 ### Ongoing Development 🏃
 

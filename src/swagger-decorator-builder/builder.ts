@@ -23,9 +23,9 @@ import { HttpMethods, SwaggerHttpStatus } from './types';
 export class SwaggerDecoratorBuilder {
   private body?: MethodDecorator;
   private operation?: MethodDecorator;
-  private param?: MethodDecorator[];
-  private query?: MethodDecorator[];
-  private response?: Map<SwaggerHttpStatus, MethodDecorator> = new Map<
+  private params?: MethodDecorator[];
+  private queries?: MethodDecorator[];
+  private responses?: Map<SwaggerHttpStatus, MethodDecorator> = new Map<
     SwaggerHttpStatus,
     MethodDecorator
   >();
@@ -44,7 +44,7 @@ export class SwaggerDecoratorBuilder {
    * @returns {this}
    */
   addParam(param: ApiParamOptions): this {
-    this.param.push(this.makeApiParam(param));
+    this.params.push(this.makeApiParam(param));
     return this;
   }
 
@@ -54,17 +54,21 @@ export class SwaggerDecoratorBuilder {
    * @returns {this}
    */
   addQuery(query: ApiQueryOptions): this {
-    this.query.push(this.makeApiQuery(query));
+    this.queries.push(this.makeApiQuery(query));
     return this;
   }
 
   /**
    * Add or revise API response.
-   * @param {ApiResponseOptions} response - The Swagger response configuration.
+   * @param {number | ApiResponseOptions} response - The HTTP status code or Swagger response configuration.
    * @returns {this}
    */
-  addResponse(response: ApiResponseOptions): this {
-    this.response.set(response.status, this.makeApiResponse(response));
+  addResponse(response: number | ApiResponseOptions): this {
+    if (typeof response === 'number') {
+      this.responses.set(response, this.makeApiResponse({ status: response }));
+      return this;
+    }
+    this.responses.set(response.status, this.makeApiResponse(response));
     return this;
   }
 
@@ -74,14 +78,15 @@ export class SwaggerDecoratorBuilder {
    * @returns {this}
    */
   removeResponse(status: SwaggerHttpStatus): this {
-    this.response.delete(status);
+    this.responses.delete(status);
     return this;
   }
 
   /**
    * Build and return a custom decorator using the configured decorators.
+   * @returns {MethodDecorator} - a custom decorator.
    */
-  build() {
+  build(): MethodDecorator {
     const decorators: MethodDecorator[] = [];
     if (this.body) {
       decorators.push(this.body);
@@ -89,13 +94,13 @@ export class SwaggerDecoratorBuilder {
     if (this.operation) {
       decorators.push(this.operation);
     }
-    this.param.forEach((apiParam: MethodDecorator) =>
+    this.params.forEach((apiParam: MethodDecorator) =>
       decorators.push(apiParam),
     );
-    this.query.forEach((apiQuery: MethodDecorator) =>
+    this.queries.forEach((apiQuery: MethodDecorator) =>
       decorators.push(apiQuery),
     );
-    this.response.forEach((apiResponse: MethodDecorator) =>
+    this.responses.forEach((apiResponse: MethodDecorator) =>
       decorators.push(apiResponse),
     );
     return applyDecorators(...decorators);
@@ -163,7 +168,7 @@ export class SwaggerDecoratorBuilder {
    * @returns {MethodDecorator} - The generated @ApiResponse decorator.
    */
   private makeApiResponse(response: ApiResponseOptions): MethodDecorator {
-    if (!response.description && typeof response.status) {
+    if (!response.description && typeof response.status === 'number') {
       response.description = STATUS_CODES[response.status];
     }
     return ApiResponse(response as ApiResponseOptions);
@@ -185,16 +190,16 @@ export class SwaggerDecoratorBuilder {
   /**
    * Automatically make the default @ApiResponse decorators.
    * You can add and remove response decorators by using add() and remove() methods.
-   * @param {any} returnType - The return type when the HTTP response code is 200.
+   * @param {any} returnType - The return type when the HTTP status code is 200.
    */
   private makeDefaultApiResponses(returnType?: any): void {
-    this.response.set(
+    this.responses.set(
       200,
       this.makeApiResponse({ status: 200, type: returnType }),
     );
-    this.response.set(401, this.makeApiResponse({ status: 401 }));
-    this.response.set(403, this.makeApiResponse({ status: 403 }));
-    this.response.set(404, this.makeApiResponse({ status: 404 }));
-    this.response.set(500, this.makeApiResponse({ status: 500 }));
+    this.responses.set(401, this.makeApiResponse({ status: 401 }));
+    this.responses.set(403, this.makeApiResponse({ status: 403 }));
+    this.responses.set(404, this.makeApiResponse({ status: 404 }));
+    this.responses.set(500, this.makeApiResponse({ status: 500 }));
   }
 }

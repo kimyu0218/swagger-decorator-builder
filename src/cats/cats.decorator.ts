@@ -12,7 +12,7 @@ import { SwaggerDecoratorBuilder } from 'src/swagger-decorator-builder';
  * @returns
  */
 export const CreateCatDecorator = (target: string, body: ApiBodyOptions) =>
-  new SwaggerDecoratorBuilder(target, 'POST')
+  new SwaggerDecoratorBuilder(target, 'POST') // Automatically set API operation summary. (target: 'cat' -> POST cat)
     .setBody(body) // Set the request body.
     .removeResponse(200) // Remove default 200 API response.
     .removeResponse(403) // Remove default 403 API response.
@@ -27,7 +27,7 @@ export const CreateCatDecorator = (target: string, body: ApiBodyOptions) =>
  * @returns
  */
 export const FindAllCatsDecorator = (target: string, returnType: any) =>
-  new SwaggerDecoratorBuilder(target, 'GET', returnType)
+  new SwaggerDecoratorBuilder(target, 'GET', returnType) // Automatically set API operation summary. (target: 'cats' -> GET cats)
     .removeResponse(401) // Remove the default 401 API response.
     .removeResponse(403) // Remove the default 403 API response.
     .removeResponse(404) // Remove the default 404 API response.
@@ -45,7 +45,7 @@ export const FindCatDecorator = (
   param: ApiParamOptions,
   returnType: any,
 ) =>
-  new SwaggerDecoratorBuilder(target, 'GET', returnType)
+  new SwaggerDecoratorBuilder(target, 'GET', returnType) // Automatically set API operation summary. (target: 'cat' -> GET cat)
     .addParam(param) // Set the request param.
     .removeResponse(403) // Remove the default 403 API response.
     .build();
@@ -62,7 +62,7 @@ export const UpdateCatDecorator = (
   param: ApiParamOptions,
   body: ApiBodyOptions,
 ) =>
-  new SwaggerDecoratorBuilder(target, 'PATCH')
+  new SwaggerDecoratorBuilder(target, 'PATCH') // Automatically set API operation summary. (target: 'cat' -> PATCH cat)
     .addParam(param) // Set the request param.
     .setBody(body) // Set the request body.
     .addResponse({ status: 403, description: 'Forbidden - Unauthorized User' }) // Overwrite the default 403 API response.
@@ -75,6 +75,6 @@ export const UpdateCatDecorator = (
  * @returns
  */
 export const DeleteCatDecorator = (target: string, param: ApiParamOptions) =>
-  new SwaggerDecoratorBuilder(target, 'DELETE')
+  new SwaggerDecoratorBuilder(target, 'DELETE') // Automatically set API operation summary. (target: 'cat' -> DELETE cat)
     .addParam(param) // Set the request param.
     .build();
