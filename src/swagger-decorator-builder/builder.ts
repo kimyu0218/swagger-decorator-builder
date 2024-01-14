@@ -23,8 +23,8 @@ import { HttpMethods, SwaggerHttpStatus } from './types';
 export class SwaggerDecoratorBuilder {
   private body?: MethodDecorator;
   private operation?: MethodDecorator;
-  private params?: MethodDecorator[];
-  private queries?: MethodDecorator[];
+  private params?: MethodDecorator[] = [];
+  private queries?: MethodDecorator[] = [];
   private responses?: Map<SwaggerHttpStatus, MethodDecorator> = new Map<
     SwaggerHttpStatus,
     MethodDecorator
